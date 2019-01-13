@@ -12,99 +12,123 @@
 			text-decoration: none;
 			color: #000000;
 		}
-
-		body{
-			/*background: url(./images/background.jpg) no-repeat;
-			background-size: cover;*/
-			background-color:#9DD3FA;
+		ul li{
+			list-style-type:none;
 		}
 		.container{
 			width: 100vw;
-			/*height: 100vh;*/
 		}
 		.header{
 			width: 100%;
-			height: 100px;
-			text-align: center;
+			height: 60px;
+			text-align: left;
+			background: #663366;
 		}
-		.header > h1{
-			padding: 30px 0 0 0;
+		.header > h2{
+			padding: 15px 0 0 20px;
+    		color: #ffffff;
 		}
 		.main{
 			width: 100%;
-			/*height: calc(100vh - 100px);*/
 			display: flex;
-			flex-direction:row;
 		}
-		.main > div{
+		.left{
 			flex:1;
-			padding: 0 25px;
+	        min-width: 200px;
+    		max-width: 200px;
+		    background: rgba(102,51,102,.8);
+		    color: #ffffff;
+		    font-size: 16px;
+		    height: calc(100vh - 60px);
 		}
+		.left > li{
+			padding: 10px 10px 10px 20px;
+			cursor: pointer;
+		}
+		.left > li.active{
+			border-left: 5px solid #990066;
+			background: rgba(153,0,102,.2);
+		}
+		.right{
+			flex:11;
+			height: calc(100vh - 60px);
+			overflow-y: auto;
+		}
+		.right .hidden{
+			display: none;
+		}
+	
 	</style>
 </head>
 	<body>
 		<div class="container">
 			<div class="header">
-				<h1>欢迎来到米小虫的个人主页O(∩_∩)O~~</h1>
+				<h2>米小虫的主页</h2>
 			</div>
 			<div class="main">
-				<div>
-					<h3>javascript</h3>
-					<ul>
-						<li>
-							<a target="_blank" href="https://github.com/xiaoqiongxian/xiaoqiongxian.github.io/tree/master/javascript/test">test</a>
-						</li>
-					</ul>	
-				</div>
-				<div>
-					<h3>html/css</h3>
-					<ul>
-						<li>
-							<a target="_blank" href="https://github.com/xiaoqiongxian/xiaoqiongxian.github.io/tree/master/javascript/test">test</a>
-						</li>
-					</ul>	
-				</div>
-				<div>
-					<h3>vue</h3>
-					<ul>
-						<li>
-							<a target="_blank" href="https://github.com/xiaoqiongxian/xiaoqiongxian.github.io/tree/master/javascript/test">test</a>
-						</li>
-					</ul>	
-				</div>
-				<div>
-					<h3>react</h3>
-					<ul>
-						<li>
-							<a target="_blank" href="https://github.com/xiaoqiongxian/xiaoqiongxian.github.io/tree/master/javascript/test">test</a>
-						</li>
-					</ul>	
-				</div>
-				<div>
-					<h3>nodejs</h3>
-					<ul>
-						<li>
-							<a target="_blank" href="https://github.com/xiaoqiongxian/xiaoqiongxian.github.io/tree/master/javascript/test">test</a>
-						</li>
-					</ul>	
-				</div>
-				<div>
-					<h3>那些踩过的坑</h3>
-					<ul>
-						<li>
-							<a target="_blank" href="https://github.com/xiaoqiongxian/xiaoqiongxian.github.io/tree/master/javascript/test">test</a>
-						</li>
-					</ul>	
-				</div>
-				<div>
-					<h3>一些废话</h3>
-					<ul>
-						<li>
-							<a target="_blank" href="https://github.com/xiaoqiongxian/xiaoqiongxian.github.io/tree/master/javascript/test">test</a>
-						</li>
-					</ul>	
+				<ul class="left">
+					<li id="javascript" class="left-item active">javascript</li>
+					<li id="html" class="left-item">html/css</li>
+					<li id="vue" class="left-item">vue</li>
+				</ul>
+				<div class="right">
+					<div id="javascript-right" class="right-item">
+						<ul>
+							<li>
+								<a target="_blank" href="https://github.com/xiaoqiongxian/xiaoqiongxian.github.io/tree/master/javascript/test">js/test</a>
+							</li>
+						</ul>	
+					</div>
+					<div id="html-right" class="right-item hidden">
+						<ul>
+							<li>
+								<a target="_blank" href="https://github.com/xiaoqiongxian/xiaoqiongxian.github.io/tree/master/javascript/test">html/test</a>
+							</li>
+						</ul>	
+					</div>
+					<div id="vue-right" class="right-item hidden">
+						<ul>
+							<li>
+								<a target="_blank" href="https://github.com/xiaoqiongxian/xiaoqiongxian.github.io/tree/master/javascript/test">vue/test</a>
+							</li>
+						</ul>	
+					</div>
 				</div>
 			</div>
 		</div>
 	</body>
+	<script type="text/javascript">
+		var leftNav = document.querySelector(".left");
+		var leftNavItems = document.querySelectorAll(".left-item");
+		var rightItems = document.querySelectorAll(".right-item");
+		if(window.attachEvent){
+      		leftNav.attachEvent("onclick",function(event){
+		        if(event.target.nodeName !== "LI" || event.target.classList.contains("active")){
+		        	return;      
+	          	} 
+		        for (var i = 0; i < leftNavItems.length; i++) {
+		           	leftNavItems[i].classList.remove("active");
+	           	}; 
+	           	for (var j = 0; j < rightItems.length; j++) {
+		           	rightItems[j].classList.add("hidden");
+	           	}; 
+	           	event.target.classList.add("active");
+	           	document.querySelector("#"+event.target.id+"-right").classList.remove("hidden");
+	      	});
+	   	} else{
+	       leftNav.addEventListener("click",function(event){
+		        if(event.target.nodeName !== "LI" || event.target.classList.contains("active")){
+		        	return;      
+	          	} 
+		        for (var i = 0; i < leftNavItems.length; i++) {
+		           	leftNavItems[i].classList.remove("active");
+	           	}; 
+	           	for (var j = 0; j < rightItems.length; j++) {
+		           	rightItems[j].classList.add("hidden");
+	           	}; 
+	           	event.target.classList.add("active");
+	           	document.querySelector("#"+event.target.id+"-right").classList.remove("hidden");
+	      });
+	   	}
+	</script>
 </html>
